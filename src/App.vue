@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1 class="text-3xl font-bold text-center">NepBazzer</h1>
-  </div>
+  <header>
+    <NavBar />
+  </header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import NavBar from "./components/NavBar.vue";
+</script>
