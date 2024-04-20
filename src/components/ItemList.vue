@@ -19,6 +19,8 @@
         <h2>Sort by</h2>
         <button @click="sortBy('lowToHigh')">Price - (Low to High)</button>
         <button @click="sortBy('highToLow')">Price - (High to Low)</button>
+        <button @click="sortBy('rate')">Populare - (Low to High)</button>
+        <button @click="sortBy('count')">Review - (High to Low)</button>
       </div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-2">
@@ -70,12 +72,12 @@ const clearSelectedCategory = () => {
   dispatch("home/clearSelectedCategory");
 };
 
-const sortBy = (order: any) => {
-  console.log(order);
+const sortBy = (order: string) => {
   store.dispatch("home/sortProducts", order);
 };
 
 const filterItems = computed<Product[]>(() => getters["home/filteredProducts"]);
+
 onMounted(async () => {
   await dispatch("home/fetchProductData");
 });
