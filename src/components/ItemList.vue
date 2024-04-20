@@ -1,4 +1,19 @@
 <template>
+  <input
+    type="text"
+    v-model="searchQuery"
+    @input="handleSearchInput"
+    placeholder="Search products..."
+  />
+  <ul v-if="showAutocomplete">
+    <li
+      v-for="suggestion in autocompleteSuggestions"
+      :key="suggestion.id"
+      @click="selectSuggestion(suggestion)"
+    >
+      {{ suggestion.title }}
+    </li>
+  </ul>
   <section class="flex flex-row gap-5">
     <div class="hidden md:block w-[50%] h-96 border border-blue-500 rounded-xl">
       <div>
@@ -35,21 +50,24 @@
         </div>
       </template>
       <!-- Show item cards if loading is false -->
-      <template v-else>
+      <template v-else-if="filteredProducts.length > 0">
         <div
-          v-for="item in filterItems"
+          v-for="item in filteredProducts"
           :key="item.id"
           class="bg-white p-4 shadow-md rounded-md"
         >
           <ItemCard :item="item" />
         </div>
       </template>
+      <template v-else>
+        <p class="text-red-500">No products found</p>
+      </template>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { Product } from "../types/data";
 import SkeletonCard from "./shared/SkeletonCard.vue";
@@ -57,6 +75,9 @@ import ItemCard from "./shared/ItemCard.vue";
 
 const store = useStore();
 const { getters, dispatch } = store;
+const searchQuery = ref("");
+const showAutocomplete = ref(false);
+
 const loading = computed(() => getters["home/isLoading"]);
 const items = computed<Product[]>(() => getters["home/getProductData"]);
 
@@ -76,7 +97,28 @@ const sortBy = (order: string) => {
   store.dispatch("home/sortProducts", order);
 };
 
-const filterItems = computed<Product[]>(() => getters["home/filteredProducts"]);
+const filteredProducts = computed<Product[]>(() => getters["home/filteredProducts"]);
+
+/* TODO: refactor required */
+const autocompleteSuggestions = computed(
+  () => getters["home/autocompleteSuggestions"]
+);
+
+const handleSearchInput = () => {
+  if (searchQuery.value.length > 0) {
+    showAutocomplete.value = true;
+    store.dispatch("home/searchProducts", searchQuery.value);
+    store.dispatch("home/setSearchQuery", searchQuery.value);
+  } else {
+    showAutocomplete.value = false;
+  }
+};
+
+const selectSuggestion = (suggestion: { title: string }) => {
+  searchQuery.value = suggestion.title;
+  showAutocomplete.value = false;
+};
+/* TODO: refactor required */
 
 onMounted(async () => {
   await dispatch("home/fetchProductData");
