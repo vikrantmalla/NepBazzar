@@ -6,4 +6,6 @@ export const state: StoreType.HomeState = {
   uniqueCategories: [],
   selectedCategory: null,
   sortedProducts: [],
+  autocompleteSuggestions: [],
+  searchQuery: ''
 };

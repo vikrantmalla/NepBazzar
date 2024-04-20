@@ -71,4 +71,11 @@ export const actions = {
     }
     commit("setSortedProducts", sortedProducts);
   },
+  searchProducts({ commit, state }: ActionContext<StoreType.HomeState, StoreType.HomeState>, query: string) {
+    const suggestions = state.productData.filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
+    commit('setAutocompleteSuggestions', suggestions);
+  },
+  setSearchQuery({ commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>, query: string) {
+    commit('setSearchQuery', query);
+  },
 };

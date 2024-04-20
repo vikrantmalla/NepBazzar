@@ -19,5 +19,11 @@ export const mutations = {
   },
   setSortedProducts(state: StoreType.HomeState, sortedProducts: Product[]) {
     state.sortedProducts = sortedProducts;
-  }
+  },
+  setAutocompleteSuggestions(state: StoreType.HomeState, suggestions: Product[]) {
+    state.autocompleteSuggestions = suggestions;
+  },
+  setSearchQuery(state: StoreType.HomeState, query: string) {
+    state.searchQuery = query;
+  },
 };

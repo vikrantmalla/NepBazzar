@@ -10,18 +10,27 @@ export const getters = {
     selectedCategory: string;
     productData: Product[];
     sortedProducts: Product[];
+    autocompleteSuggestions: Product[]; 
+    searchQuery: string;
   }) => {
+    let filteredItems: Product[] = [];
     if (!state.selectedCategory) {
-      return state.sortedProducts.length
-        ? state.sortedProducts
-        : state.productData;
+      filteredItems = state.sortedProducts.length ? state.sortedProducts : state.productData;
+    } else {
+
+      filteredItems = state.sortedProducts.length
+        ? state.sortedProducts.filter((product: Product) => product.category === state.selectedCategory)
+        : state.productData.filter((product: Product) => product.category === state.selectedCategory);
     }
-    return state.sortedProducts.length
-      ? state.sortedProducts.filter(
-          (product: Product) => product.category === state.selectedCategory
-        )
-      : state.productData.filter(
-          (product: Product) => product.category === state.selectedCategory
-        );
+
+    if (state.autocompleteSuggestions.length && state.searchQuery) {
+      filteredItems = state.autocompleteSuggestions.filter((suggestion: Product) =>
+        suggestion.title.toLowerCase().includes(state.searchQuery.toLowerCase())
+      );
+    }
+    return filteredItems;
   },
+  autocompleteSuggestions(state: {autocompleteSuggestions: Product[]}) {
+    return state.autocompleteSuggestions;
+  }
 };

@@ -7,5 +7,7 @@ declare namespace StoreType {
     uniqueCategories: string[];
     selectedCategory: null | string;
     sortedProducts: Product[];
+    autocompleteSuggestions: Product[];
+    searchQuery: string;
   }
 }
