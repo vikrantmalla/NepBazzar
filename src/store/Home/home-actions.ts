@@ -2,6 +2,7 @@ import type { ActionContext } from "vuex/types/index.js";
 import { useProductFetch } from "../../service/homeService";
 import { Message } from "../../types/enum";
 import { StoreType } from "../../types/store";
+import { Product } from "../../types/data";
 
 const { fetchProduct } = useProductFetch();
 
@@ -34,5 +35,20 @@ export const actions = {
   },
   clearSelectedCategory({ commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
     commit('clearSelectedCategory');
+  },
+  sortProducts({ commit, state }: ActionContext<StoreType.HomeState, StoreType.HomeState>, sortBy: string) {
+    const product = state.productData;
+    let sortedProducts: Product[] = [];
+    switch (sortBy) {
+      case 'lowToHigh':
+        sortedProducts = product.slice().sort((a, b) => a.price - b.price);
+        break;
+      case 'highToLow':
+        sortedProducts = product.slice().sort((a, b) => b.price - a.price);
+        break;
+      default:
+        sortedProducts = product;
+    }
+    commit('setSortedProducts', sortedProducts);
   }
 };

@@ -4,5 +4,6 @@ export const state: StoreType.HomeState = {
   loading: false,
   productData: [],
   uniqueCategories: [],
-  selectedCategory: null
-}
+  selectedCategory: null,
+  sortedProducts: [],
+};

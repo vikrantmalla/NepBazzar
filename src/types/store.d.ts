@@ -6,5 +6,6 @@ declare namespace StoreType {
     productData: Product[];
     uniqueCategories: string[];
     selectedCategory: null | string;
+    sortedProducts: Product[];
   }
 }
