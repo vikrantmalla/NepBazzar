@@ -2,7 +2,7 @@
   <header>
     <NavBar />
   </header>
-  <main>
+  <main class=" w-[90%] m-auto">
     <ItemList/>
   </main>
 </template>
