@@ -16,5 +16,8 @@ export const mutations = {
   },
   clearSelectedCategory(state: StoreType.HomeState) {
     state.selectedCategory = null;
+  },
+  setSortedProducts(state: StoreType.HomeState, sortedProducts: Product[]) {
+    state.sortedProducts = sortedProducts;
   }
 };
