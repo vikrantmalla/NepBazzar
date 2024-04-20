@@ -18,6 +18,8 @@ export const actions = {
       }
       const data = await response.json();
       commit("setProductData", data);
+      const categories = Array.from(new Set(data.map((product: { category: string; }) => product.category)));
+      commit('setUniqueCategories', categories);
 
       setTimeout(() => {
         commit("setLoading", false);
@@ -27,4 +29,10 @@ export const actions = {
       commit("setLoading", false);
     }
   },
+  selectCategory({ commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>, category: string) {
+    commit('setSelectedCategory', category);
+  },
+  clearSelectedCategory({ commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
+    commit('clearSelectedCategory');
+  }
 };

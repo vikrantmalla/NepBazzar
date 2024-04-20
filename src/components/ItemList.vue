@@ -1,25 +1,41 @@
 <template>
-  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-2">
-    <template v-if="loading">
-      <!-- Skeleton Loading Component -->
-      <div
-        v-for="index in items?.length"
-        :key="index"
-        class="bg-white p-4 border border-gray-500 rounded-md animate-pulse"
-      >
-        <SkeletonCard />
+  <section class="flex flex-row gap-5">
+    <div class="hidden md:block w-[50%] h-96 border border-blue-500 rounded-xl">
+      <div>
+        <h2>Filter By</h2>
+        <button @click="clearSelectedCategory">Clear</button>
       </div>
-    </template>
-    <!-- Show item cards if loading is false -->
-    <template v-else>
-      <div
-        v-for="item in items"
-        :key="item.id"
-        class="bg-white p-4 shadow-md rounded-md"
+      <button
+        v-for="category in uniqueCategories"
+        :key="category"
+        @click="handleCategoryClick(category)"
+        class="px-4 py-2 rounded-md border mr-2 mb-2 hover:bg-blue-600 focus:outline-none"
       >
-        <ItemCard :item="item" />
-      </div>
-    </template>
+        {{ category }}
+      </button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-2">
+      <template v-if="loading">
+        <!-- Skeleton Loading Component -->
+        <div
+          v-for="index in items?.length"
+          :key="index"
+          class="bg-white p-4 border border-gray-500 rounded-md animate-pulse"
+        >
+          <SkeletonCard />
+        </div>
+      </template>
+      <!-- Show item cards if loading is false -->
+      <template v-else>
+        <div
+          v-for="item in filterItems"
+          :key="item.id"
+          class="bg-white p-4 shadow-md rounded-md"
+        >
+          <ItemCard :item="item" />
+        </div>
+      </template>
+    </div>
   </section>
 </template>
 
@@ -35,6 +51,17 @@ const { getters, dispatch } = store;
 const loading = computed(() => getters["home/isLoading"]);
 const items = computed<Product[]>(() => getters["home/getProductData"]);
 
+const uniqueCategories = computed<string[]>(() => getters["home/uniqueCategories"]);
+
+const handleCategoryClick = (category: string) => {
+  dispatch("home/selectCategory", category);
+};
+
+const clearSelectedCategory = () => {
+  dispatch("home/clearSelectedCategory");
+};
+
+const filterItems = computed<Product[]>(() => getters["home/filteredProducts"]);
 onMounted(async () => {
   await dispatch("home/fetchProductData");
 });
