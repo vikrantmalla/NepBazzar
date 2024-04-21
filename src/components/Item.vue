@@ -20,6 +20,9 @@
         <ItemCard :item="item" />
       </div>
     </template>
+    <template v-else>
+        <p class="text-red-500">No products found</p>
+      </template>
   </div>
 </template>
 <script setup lang="ts">
