@@ -2,10 +2,13 @@
   <div>
     <img :src="item.image" :alt="item.title" class="h-40 mb-4 rounded-md" />
     <h3 class="text-lg font-semibold mb-2">{{ shortHeading }}...</h3>
-    <p class="text-gray-600 mb-2">${{ item.price }}</p>
+    <div class="flex justify-between">
+      <p class="text-gray-600 mb-2">${{ item.price }}</p>
+      <p class="text-gray-500 mb-2">{{ item.category }}</p>
+    </div>
     <p class="text-gray-700 mb-2">{{ shortDescription }}...</p>
-    <p class="text-gray-500 mb-2">{{ item.category }}</p>
-    <div class="flex items-center mb-2">
+    <div class="flex items-center gap-1 mb-2">
+      <img src="../../assets/image/star.svg" alt="star" class="w-4" />
       <span class="text-gray-600"
         >{{ item.rating.rate }} ({{ item.rating.count }} reviews)</span
       >
