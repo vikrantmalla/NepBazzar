@@ -1,5 +1,5 @@
 <template>
-  <div class="hidden md:block w-[50%] h-96 border border-blue-500 rounded-xl">
+  <div class="hidden md:block w-[50%] h-96 border border-black rounded-xl p-3">
     <Filter />
     <Sort />
   </div>
