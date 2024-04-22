@@ -6,31 +6,45 @@ export const getters = {
   uniqueCategories(state: { uniqueCategories: string[] }) {
     return state.uniqueCategories;
   },
+  showSlider(state: { showSlider: boolean }) {
+    return state.showSlider;
+  },
   filteredProducts: (state: {
     selectedCategory: string;
     productData: Product[];
     sortedProducts: Product[];
-    autocompleteSuggestions: Product[]; 
+    autocompleteSuggestions: Product[];
     searchQuery: string;
   }) => {
     let filteredItems: Product[] = [];
     if (!state.selectedCategory) {
-      filteredItems = state.sortedProducts.length ? state.sortedProducts : state.productData;
-    } else {
-
       filteredItems = state.sortedProducts.length
-        ? state.sortedProducts.filter((product: Product) => product.category === state.selectedCategory)
-        : state.productData.filter((product: Product) => product.category === state.selectedCategory);
+        ? state.sortedProducts
+        : state.productData;
+    } else {
+      filteredItems = state.sortedProducts.length
+        ? state.sortedProducts.filter(
+            (product: Product) => product.category === state.selectedCategory
+          )
+        : state.productData.filter(
+            (product: Product) => product.category === state.selectedCategory
+          );
     }
 
     if (state.autocompleteSuggestions.length && state.searchQuery) {
-      filteredItems = state.autocompleteSuggestions.filter((suggestion: Product) =>
-        suggestion.title.toLowerCase().includes(state.searchQuery.toLowerCase())
+      filteredItems = state.autocompleteSuggestions.filter(
+        (suggestion: Product) =>
+          suggestion.title
+            .toLowerCase()
+            .includes(state.searchQuery.toLowerCase())
       );
     }
     return filteredItems;
   },
-  autocompleteSuggestions(state: {autocompleteSuggestions: Product[]}) {
+  autocompleteSuggestions(state: { autocompleteSuggestions: Product[] }) {
     return state.autocompleteSuggestions;
-  }
+  },
+  cartItemsCount(state: { cartItems: Product[] }) {
+    return state.cartItems.length;
+  },
 };

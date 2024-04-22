@@ -11,6 +11,9 @@ export const mutations = {
   setUniqueCategories(state: StoreType.HomeState, categories: string[]) {
     state.uniqueCategories = categories;
   },
+  toggleSlider(state: StoreType.HomeState) {
+    state.showSlider = !state.showSlider;
+  },
   setSelectedCategory(state: StoreType.HomeState, category: string | null) {
     state.selectedCategory = category;
   },
@@ -26,4 +29,14 @@ export const mutations = {
   setSearchQuery(state: StoreType.HomeState, query: string) {
     state.searchQuery = query;
   },
+  addToCart(state: StoreType.HomeState, item: Product) {
+    console.log(item)
+    if (!state.cartItems.some(cartItem => cartItem.id === item.id)) {
+      state.cartItems.push(item);
+    }
+  },
+  removeFromCart(state: StoreType.HomeState, itemId: number) {
+    console.log(itemId)
+    state.cartItems = state.cartItems.filter(item => item.id !== itemId);
+  }
 };

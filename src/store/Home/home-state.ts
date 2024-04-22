@@ -4,8 +4,10 @@ export const state: StoreType.HomeState = {
   loading: false,
   productData: [],
   uniqueCategories: [],
+  showSlider: false,
   selectedCategory: null,
   sortedProducts: [],
   autocompleteSuggestions: [],
-  searchQuery: ''
+  searchQuery: '',
+  cartItems: []
 };
