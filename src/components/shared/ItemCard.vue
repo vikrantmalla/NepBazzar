@@ -8,24 +8,52 @@
     </div>
     <p class="text-gray-700 mb-2">{{ shortDescription }}...</p>
     <div class="flex items-center gap-1 mb-2">
-      <img src="../../assets/image/star.svg" alt="star" class="w-4" />
+      <img src="../../assets/icons/star.svg" alt="star" class="w-4" />
       <span class="text-gray-600"
         >{{ item.rating.rate }} ({{ item.rating.count }} reviews)</span
       >
     </div>
     <button
+      v-if="!isInCart(item.id)"
+      @click="addToCart(item)"
       class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
     >
       Add to Cart
     </button>
+    <button
+      v-else
+      @click="removeFromCart(item.id)"
+      class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
+    >
+      Remove from Cart
+    </button>
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from "vue";
 import { Product } from "../../types/data";
+import { useStore } from "vuex";
+
 const props = defineProps<{
   item: Product;
 }>();
+const store = useStore();
+const { dispatch } = store;
+
+const addToCart = (item: Product) => {
+  console.log(item);
+  dispatch("home/addToCart", item);
+};
+
+const removeFromCart = (itemId: number) => {
+  dispatch("home/removeFromCart", itemId);
+};
+
+const isInCart = (itemId: number) => {
+  return store.state.home.cartItems.some(
+    (item: { id: number }) => item.id === itemId
+  );
+};
+
 const { item } = props;
 const shortHeading = item.title.slice(0, 50);
 const shortDescription = item.description.slice(0, 100);
