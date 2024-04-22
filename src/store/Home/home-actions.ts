@@ -38,6 +38,11 @@ export const actions = {
   ) {
     commit("setSelectedCategory", category);
   },
+  toggleSlider({
+    commit,
+  }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
+    commit("toggleSlider");
+  },
   clearSelectedCategory({
     commit,
   }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
@@ -71,11 +76,31 @@ export const actions = {
     }
     commit("setSortedProducts", sortedProducts);
   },
-  searchProducts({ commit, state }: ActionContext<StoreType.HomeState, StoreType.HomeState>, query: string) {
-    const suggestions = state.productData.filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
-    commit('setAutocompleteSuggestions', suggestions);
+  searchProducts(
+    { commit, state }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    query: string
+  ) {
+    const suggestions = state.productData.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    commit("setAutocompleteSuggestions", suggestions);
   },
-  setSearchQuery({ commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>, query: string) {
-    commit('setSearchQuery', query);
+  setSearchQuery(
+    { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    query: string
+  ) {
+    commit("setSearchQuery", query);
   },
+  addToCart(
+    { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    item: Product
+  ) {
+    commit("addToCart", item);
+  },
+  removeFromCart(
+    { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    itemId: number
+  ) {
+    commit("removeFromCart", itemId);
+  }
 };
