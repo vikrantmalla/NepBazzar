@@ -30,13 +30,14 @@ export const mutations = {
     state.searchQuery = query;
   },
   addToCart(state: StoreType.HomeState, item: Product) {
-    console.log(item)
     if (!state.cartItems.some(cartItem => cartItem.id === item.id)) {
       state.cartItems.push(item);
     }
   },
   removeFromCart(state: StoreType.HomeState, itemId: number) {
-    console.log(itemId)
     state.cartItems = state.cartItems.filter(item => item.id !== itemId);
-  }
+  },
+  updateCartTotalPrice(state: StoreType.HomeState) {
+    state.cartTotalPrice = state.cartItems.reduce((total, item) => total + item.price, 0);
+  },
 };
