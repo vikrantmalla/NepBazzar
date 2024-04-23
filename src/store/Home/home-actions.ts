@@ -96,11 +96,13 @@ export const actions = {
     item: Product
   ) {
     commit("addToCart", item);
+    commit("updateCartTotalPrice");
   },
   removeFromCart(
     { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
     itemId: number
   ) {
     commit("removeFromCart", itemId);
+    commit("updateCartTotalPrice");
   }
 };

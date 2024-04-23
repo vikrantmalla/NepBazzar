@@ -11,5 +11,6 @@ declare namespace StoreType {
     autocompleteSuggestions: Product[];
     searchQuery: string;
     cartItems: Product[];
+    cartTotalPrice: number;
   }
 }
