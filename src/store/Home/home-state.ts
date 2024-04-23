@@ -9,5 +9,6 @@ export const state: StoreType.HomeState = {
   sortedProducts: [],
   autocompleteSuggestions: [],
   searchQuery: '',
-  cartItems: []
+  cartItems: [],
+  cartTotalPrice: 0,
 };

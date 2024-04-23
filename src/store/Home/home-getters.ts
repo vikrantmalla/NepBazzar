@@ -47,4 +47,10 @@ export const getters = {
   cartItemsCount(state: { cartItems: Product[] }) {
     return state.cartItems.length;
   },
+  cartItems(state: { cartItems: Product[] }) {
+    return state.cartItems;
+  },
+  totalPrice(state: { cartTotalPrice: number }) {
+    return state.cartTotalPrice;
+  },
 };
