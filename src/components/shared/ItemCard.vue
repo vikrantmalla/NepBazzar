@@ -40,7 +40,6 @@ const store = useStore();
 const { dispatch } = store;
 
 const addToCart = (item: Product) => {
-  console.log(item);
   dispatch("home/addToCart", item);
 };
 
