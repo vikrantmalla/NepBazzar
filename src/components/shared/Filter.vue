@@ -18,9 +18,14 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
+import { useRoute, useRouter } from 'vue-router';
 
 const store = useStore();
 const { getters, dispatch } = store;
+const route = useRoute();
+const router = useRouter();
+
+
 const selectedCategory = ref("")
 // List an category
 const uniqueCategories = computed<string[]>(
@@ -31,6 +36,7 @@ const uniqueCategories = computed<string[]>(
 const handleCategoryClick = (category: string) => {
   selectedCategory.value = category;
   dispatch("home/selectCategory", category);
+  router.push({ path: route.path, query: { category: selectedCategory.value } });
 };
 
 // Remove a category that has been clicked.
