@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS } from "./endpoints";
+import { FETCH_CATEGORIES, FETCH_PRODUCTS } from "./endpoints";
 
 export function useProductFetch() {
   const fetchProduct = async () => {
@@ -6,7 +6,13 @@ export function useProductFetch() {
       return response; 
   };
 
+  const fetchProductCategories =  async () => {
+    const response = await fetch(FETCH_CATEGORIES)
+    return response;
+  }
+
   return {
     fetchProduct,
+    fetchProductCategories
   };
 }
