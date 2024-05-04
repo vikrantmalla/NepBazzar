@@ -4,7 +4,7 @@ import { Message } from "../../types/enum";
 import { StoreType } from "../../types/store";
 import { Product } from "../../types/data";
 
-const { fetchProduct } = useProductFetch();
+const { fetchProduct, fetchProductCategories } = useProductFetch();
 
 export const actions = {
   async fetchProductData({
@@ -19,9 +19,26 @@ export const actions = {
       }
       const data = await response.json();
       commit("setProductData", data);
-      const categories = Array.from(
-        new Set(data.map((product: { category: string }) => product.category))
-      );
+
+      setTimeout(() => {
+        commit("setLoading", false);
+      }, 2000);
+    } catch (error) {
+      console.error(Message.FETCH_ERROR, error);
+      commit("setLoading", false);
+    }
+  },
+  async fetchCategoriesList({
+    commit,
+  }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
+    commit("setLoading", true);
+
+    try {
+      const response = await fetchProductCategories();
+      if (!response.ok) {
+        throw new Error(Message.BAD_NETWORK);
+      }
+      const categories = await response.json();
       commit("setUniqueCategories", categories);
 
       setTimeout(() => {
@@ -106,3 +123,5 @@ export const actions = {
     commit("updateCartTotalPrice");
   }
 };
+
+
