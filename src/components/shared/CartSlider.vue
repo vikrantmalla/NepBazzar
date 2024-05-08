@@ -14,7 +14,10 @@
               alt="close"
             />
           </div>
-          <div v-if="cartItems.length === 0" class="flex justify-center items-center h-[60%]">
+          <div
+            v-if="cartItems.length === 0"
+            class="flex justify-center items-center h-[60%]"
+          >
             <p>Cart is empty...</p>
           </div>
           <div v-else>
@@ -29,9 +32,20 @@
                 alt="delete"
               />
               <h2>{{ item.title }}</h2>
-              <hr/>
-              <div>
+              <hr />
+              <div class="flex justify-between">
                 <h2>{{ item.price }}</h2>
+                <div class="flex gap-2">
+                  <img
+                    src="../../assets/icons/icon-minus.svg"
+                    alt="minus"
+                  />
+                  1
+                  <img
+                    src="../../assets/icons/icon-plus.svg"
+                    alt="plus"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -39,7 +53,7 @@
         <div>
           <hr />
           <div class="flex justify-between items-center">
-            <h2>total:</h2>
+            <h2>Total:</h2>
             <h2>{{ totalPrice }}</h2>
           </div>
         </div>
@@ -57,8 +71,7 @@ const toggleSlider = () => {
   dispatch("home/toggleSlider");
 };
 const cartItems = computed(() => getters["home/cartItems"]);
-console.log(cartItems.value);
-const totalPrice = computed(() => getters["home/totalPrice"])
+const totalPrice = computed(() => getters["home/totalPrice"]);
 const removeFromCart = (itemId: number) => {
   dispatch("home/removeFromCart", itemId);
 };
