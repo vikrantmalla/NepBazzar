@@ -28,6 +28,27 @@ export const actions = {
       commit("setLoading", false);
     }
   },
+  async fetchSingleProductData({
+    commit,
+  }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
+    commit("setLoading", true);
+
+    try {
+      const response = await fetchProduct();
+      if (!response.ok) {
+        throw new Error(Message.BAD_NETWORK);
+      }
+      const data = await response.json();
+      commit("setSingleProductData", data);
+
+      setTimeout(() => {
+        commit("setLoading", false);
+      }, 2000);
+    } catch (error) {
+      console.error(Message.FETCH_ERROR, error);
+      commit("setLoading", false);
+    }
+  },
   async fetchCategoriesList({
     commit,
   }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
