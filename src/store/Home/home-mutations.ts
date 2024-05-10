@@ -8,6 +8,9 @@ export const mutations = {
   setProductData(state: StoreType.HomeState, data: Product[]) {
     state.productData = data;
   },
+  setSingleProductData(state: StoreType.HomeState, data: Product[]) {
+    state.singleProductData = data;
+  },
   setUniqueCategories(state: StoreType.HomeState, categories: string[]) {
     state.uniqueCategories = categories;
   },
