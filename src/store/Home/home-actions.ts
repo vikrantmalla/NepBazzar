@@ -4,7 +4,8 @@ import { Message } from "../../types/enum";
 import { StoreType } from "../../types/store";
 import { Product } from "../../types/data";
 
-const { fetchProduct, fetchProductCategories } = useProductFetch();
+const { fetchProduct, fetchSingleProduct, fetchProductCategories } =
+  useProductFetch();
 
 export const actions = {
   async fetchProductData({
@@ -28,13 +29,14 @@ export const actions = {
       commit("setLoading", false);
     }
   },
-  async fetchSingleProductData({
-    commit,
-  }: ActionContext<StoreType.HomeState, StoreType.HomeState>) {
+  async fetchSingleProductData(
+    { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    id: number
+  ) {
     commit("setLoading", true);
 
     try {
-      const response = await fetchProduct();
+      const response = await fetchSingleProduct(id);
       if (!response.ok) {
         throw new Error(Message.BAD_NETWORK);
       }
@@ -142,7 +144,5 @@ export const actions = {
   ) {
     commit("removeFromCart", itemId);
     commit("updateCartTotalPrice");
-  }
+  },
 };
-
-
