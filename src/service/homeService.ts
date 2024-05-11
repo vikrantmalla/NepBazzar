@@ -7,7 +7,7 @@ export function useProductFetch() {
   };
 
   const fetchSingleProduct = async (id: number) => {
-    const response = await fetch(`FETCH_SINGLE_PRODUCTS/${id}`);
+    const response = await fetch(FETCH_SINGLE_PRODUCTS(id));
     return response;
   };
 
