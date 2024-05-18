@@ -11,8 +11,8 @@
         <div class="flex items-center gap-1">
           <img src="../assets/icons/star.svg" alt="star" class="w-4" />
           <span class="text-gray-600"
-            >{{ productDetails.rating.rate }} ({{
-              productDetails.rating.count
+            >{{ productDetails.rating?.rate }} ({{
+              productDetails.rating?.count
             }}
             reviews)</span
           >
