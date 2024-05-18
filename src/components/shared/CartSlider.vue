@@ -5,7 +5,7 @@
   >
     <div class="absolute inset-y-0 left-0 w-[35%] bg-gray-200 shadow-lg">
       <div class="h-[100%] flex flex-col justify-between">
-        <div class="p-4 h-[90%] border border-red-700">
+        <div class="p-4 h-[90%]">
           <div class="flex justify-between items-center mb-8">
             <h2 class="text-lg">Cart</h2>
             <img
