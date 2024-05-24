@@ -13,5 +13,6 @@ declare namespace StoreType {
     searchQuery: string;
     cartItems: Product[];
     cartTotalPrice: number;
+    noOfItems: number;
   }
 }
