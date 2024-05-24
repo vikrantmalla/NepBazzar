@@ -45,12 +45,14 @@
                         src="../../assets/icons/icon-minus.svg"
                         alt="minus"
                         class="p-4"
+                        @click="decreaseItemQuantity(item)"
                       />
-                      <span> 1 </span>
+                      <span> {{ noOfItems }} </span>
                       <img
                         src="../../assets/icons/icon-plus.svg"
                         alt="plus"
                         class="p-4"
+                        @click="increaseItemQuantity(item)"
                       />
                     </div>
                   </div>
@@ -81,6 +83,13 @@ const toggleSlider = () => {
 };
 const cartItems = computed(() => getters["home/cartItems"]);
 const totalPrice = computed(() => getters["home/totalPrice"]);
+const noOfItems = computed(() => getters["home/noOfItems"]);
+const increaseItemQuantity = (noOfItems: number) => {
+  dispatch("home/incrementItemQuantity", noOfItems);
+}
+const decreaseItemQuantity  = (noOfItems: number) => {
+  dispatch("home/decrementItemQuantity", noOfItems);
+}
 const removeFromCart = (itemId: number) => {
   dispatch("home/removeFromCart", itemId);
 };
