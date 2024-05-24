@@ -26,21 +26,37 @@ export const mutations = {
   setSortedProducts(state: StoreType.HomeState, sortedProducts: Product[]) {
     state.sortedProducts = sortedProducts;
   },
-  setAutocompleteSuggestions(state: StoreType.HomeState, suggestions: Product[]) {
+  setAutocompleteSuggestions(
+    state: StoreType.HomeState,
+    suggestions: Product[]
+  ) {
     state.autocompleteSuggestions = suggestions;
   },
   setSearchQuery(state: StoreType.HomeState, query: string) {
     state.searchQuery = query;
   },
   addToCart(state: StoreType.HomeState, item: Product) {
-    if (!state.cartItems.some(cartItem => cartItem.id === item.id)) {
+    if (!state.cartItems.some((cartItem) => cartItem.id === item.id)) {
       state.cartItems.push(item);
     }
   },
   removeFromCart(state: StoreType.HomeState, itemId: number) {
-    state.cartItems = state.cartItems.filter(item => item.id !== itemId);
+    state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
   },
   updateCartTotalPrice(state: StoreType.HomeState) {
-    state.cartTotalPrice = state.cartItems.reduce((total, item) => total + item.price, 0);
+    state.cartTotalPrice = state.cartItems.reduce(
+      (total, item) => total + item.price,
+      0
+    );
+  },
+  incrementItemQuantity(state: StoreType.HomeState) {
+    if (state.noOfItems < 5) {
+      state.noOfItems = state.noOfItems + 1;
+    }
+  },
+  decrementItemQuantity(state: StoreType.HomeState) {
+    if (state.noOfItems > 1) {
+      state.noOfItems = state.noOfItems - 1;
+    }
   },
 };

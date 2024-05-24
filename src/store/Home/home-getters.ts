@@ -3,7 +3,8 @@ import { Product } from "../../types/data";
 export const getters = {
   isLoading: (state: { loading: boolean }) => state.loading,
   getProductData: (state: { productData: Product }) => state.productData,
-  getSingleProductData: (state: {  singleProductData: Product }) => state.singleProductData,
+  getSingleProductData: (state: { singleProductData: Product }) =>
+    state.singleProductData,
   uniqueCategories(state: { uniqueCategories: string[] }) {
     return state.uniqueCategories;
   },
@@ -53,5 +54,8 @@ export const getters = {
   },
   totalPrice(state: { cartTotalPrice: number }) {
     return state.cartTotalPrice;
+  },
+  noOfItems(state: { noOfItems: number }) {
+    return state.noOfItems;
   },
 };
