@@ -12,4 +12,5 @@ export const state: StoreType.HomeState = {
   searchQuery: '',
   cartItems: [],
   cartTotalPrice: 0,
+  noOfItems: 1
 };
