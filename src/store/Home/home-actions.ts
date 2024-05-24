@@ -145,4 +145,16 @@ export const actions = {
     commit("removeFromCart", itemId);
     commit("updateCartTotalPrice");
   },
+  incrementItemQuantity(
+    { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    noOfItems: number
+  ) {
+    commit("incrementItemQuantity", noOfItems);
+  },
+  decrementItemQuantity(
+    { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
+    noOfItems: number
+  ) {
+    commit("decrementItemQuantity", noOfItems);
+  },
 };
