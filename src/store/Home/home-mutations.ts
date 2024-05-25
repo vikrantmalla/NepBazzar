@@ -36,27 +36,52 @@ export const mutations = {
     state.searchQuery = query;
   },
   addToCart(state: StoreType.HomeState, item: Product) {
-    if (!state.cartItems.some((cartItem) => cartItem.id === item.id)) {
-      state.cartItems.push(item);
+    const cartItem = state.cartItems.find(
+      (cartItem) => cartItem.id === item.id
+    );
+    if (!cartItem) {
+      // If the item is not in the cart, add it with a quantity of 1
+      state.cartItems.push({ ...item, quantity: 1 });
+    } else {
+      // If the item is already in the cart, increment its quantity
+      cartItem.quantity++;
     }
   },
   removeFromCart(state: StoreType.HomeState, itemId: number) {
-    state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
+    // Find the index of the item in the cart
+    const cartItemIndex = state.cartItems.findIndex(
+      (item) => item.id === itemId
+    );
+
+    // If the item is in the cart
+    if (cartItemIndex !== -1) {
+      const cartItem = state.cartItems[cartItemIndex];
+      // If the quantity of the item is more than 1, decrement its quantity
+      if (cartItem.quantity > 1) {
+        cartItem.quantity--;
+      } else {
+        // If the quantity of the item is 1, remove the item from the cart
+        state.cartItems.splice(cartItemIndex, 1);
+      }
+    }
   },
   updateCartTotalPrice(state: StoreType.HomeState) {
-    state.cartTotalPrice = state.cartItems.reduce(
-      (total, item) => total + item.price,
-      0
-    );
+    state.cartTotalPrice = state.cartItems.reduce((total, item) => {
+      return total + (item.price * item.quantity);
+    }, 0);
   },
-  incrementItemQuantity(state: StoreType.HomeState) {
-    if (state.noOfItems < 5) {
-      state.noOfItems = state.noOfItems + 1;
+  incrementItemQuantity(state: StoreType.HomeState, itemId: number) {
+    const cartItem = state.cartItems.find((item) => item.id === itemId);
+    if (cartItem && cartItem.quantity < 5) {
+      cartItem.quantity++;
     }
+    mutations.updateCartTotalPrice(state);
   },
-  decrementItemQuantity(state: StoreType.HomeState) {
-    if (state.noOfItems > 1) {
-      state.noOfItems = state.noOfItems - 1;
+  decrementItemQuantity(state: StoreType.HomeState, itemId: number) {
+    const cartItem = state.cartItems.find((item) => item.id === itemId);
+    if (cartItem && cartItem.quantity > 1) {
+      cartItem.quantity--;
     }
+    mutations.updateCartTotalPrice(state);
   },
 };

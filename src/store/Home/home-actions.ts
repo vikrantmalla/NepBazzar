@@ -147,14 +147,14 @@ export const actions = {
   },
   incrementItemQuantity(
     { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
-    noOfItems: number
+    itemId: number,
   ) {
-    commit("incrementItemQuantity", noOfItems);
+    commit("incrementItemQuantity", itemId);
   },
   decrementItemQuantity(
     { commit }: ActionContext<StoreType.HomeState, StoreType.HomeState>,
-    noOfItems: number
+    itemId: number
   ) {
-    commit("decrementItemQuantity", noOfItems);
+    commit("decrementItemQuantity", itemId);
   },
 };
