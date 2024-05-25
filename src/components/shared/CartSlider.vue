@@ -45,14 +45,14 @@
                         src="../../assets/icons/icon-minus.svg"
                         alt="minus"
                         class="p-4"
-                        @click="decreaseItemQuantity(item)"
+                        @click="decreaseItemQuantity(item.id)"
                       />
-                      <span> {{ noOfItems }} </span>
+                      <span> {{ item.quantity }} </span>
                       <img
                         src="../../assets/icons/icon-plus.svg"
                         alt="plus"
                         class="p-4"
-                        @click="increaseItemQuantity(item)"
+                        @click="increaseItemQuantity(item.id)"
                       />
                     </div>
                   </div>
@@ -83,12 +83,12 @@ const toggleSlider = () => {
 };
 const cartItems = computed(() => getters["home/cartItems"]);
 const totalPrice = computed(() => getters["home/totalPrice"]);
-const noOfItems = computed(() => getters["home/noOfItems"]);
-const increaseItemQuantity = (noOfItems: number) => {
-  dispatch("home/incrementItemQuantity", noOfItems);
+// const noOfItems = computed(() => getters["home/noOfItems"]);
+const increaseItemQuantity = (itemId: number) => {
+  dispatch("home/incrementItemQuantity", itemId);
 }
-const decreaseItemQuantity  = (noOfItems: number) => {
-  dispatch("home/decrementItemQuantity", noOfItems);
+const decreaseItemQuantity  = (itemId: number) => {
+  dispatch("home/decrementItemQuantity", itemId);
 }
 const removeFromCart = (itemId: number) => {
   dispatch("home/removeFromCart", itemId);
