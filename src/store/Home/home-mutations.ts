@@ -60,6 +60,7 @@ export const mutations = {
       cartItem.quantity = 0;
       // Remove the item from the cart
       state.cartItems.splice(cartItemIndex, 1);
+      state.quantityLimitReached = false;
     }
   },
   updateCartTotalPrice(state: StoreType.HomeState) {
@@ -69,8 +70,13 @@ export const mutations = {
   },
   incrementItemQuantity(state: StoreType.HomeState, itemId: number) {
     const cartItem = state.cartItems.find((item) => item.id === itemId);
-    if (cartItem && cartItem.quantity < 5) {
-      cartItem.quantity++;
+    if (cartItem) {
+      if (cartItem.quantity >= 5) {
+        // Set a state property to indicate that the limit is reached
+        state.quantityLimitReached = true;
+      } else {
+        cartItem.quantity++;
+      }
     }
     mutations.updateCartTotalPrice(state);
   },
@@ -78,6 +84,9 @@ export const mutations = {
     const cartItem = state.cartItems.find((item) => item.id === itemId);
     if (cartItem && cartItem.quantity > 1) {
       cartItem.quantity--;
+    }
+    if (cartItem && cartItem.quantity <= 5) {
+      state.quantityLimitReached = false;
     }
     mutations.updateCartTotalPrice(state);
   },
