@@ -11,5 +11,6 @@ export const state: StoreType.HomeState = {
   autocompleteSuggestions: [],
   searchQuery: '',
   cartItems: [],
-  cartTotalPrice: 0
+  cartTotalPrice: 0,
+  quantityLimitReached: false
 };
