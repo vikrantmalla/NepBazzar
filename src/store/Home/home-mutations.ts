@@ -56,18 +56,15 @@ export const mutations = {
     // If the item is in the cart
     if (cartItemIndex !== -1) {
       const cartItem = state.cartItems[cartItemIndex];
-      // If the quantity of the item is more than 1, decrement its quantity
-      if (cartItem.quantity > 1) {
-        cartItem.quantity--;
-      } else {
-        // If the quantity of the item is 1, remove the item from the cart
-        state.cartItems.splice(cartItemIndex, 1);
-      }
+      // Reset the quantity of the item to 0
+      cartItem.quantity = 0;
+      // Remove the item from the cart
+      state.cartItems.splice(cartItemIndex, 1);
     }
   },
   updateCartTotalPrice(state: StoreType.HomeState) {
     state.cartTotalPrice = state.cartItems.reduce((total, item) => {
-      return total + (item.price * item.quantity);
+      return total + item.price * item.quantity;
     }, 0);
   },
   incrementItemQuantity(state: StoreType.HomeState, itemId: number) {
