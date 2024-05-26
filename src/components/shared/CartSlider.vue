@@ -24,7 +24,7 @@
             <div
               v-for="item in cartItems"
               :key="item.id"
-              class="border border-black px-2 py-4 rounded-lg"
+              class="border border-black px-2 py-4 rounded-lg mb-5"
             >
               <div class="flex justify-center items-center gap-4">
                 <img :src="item.image" :alt="item.title" class="w-10" />
@@ -63,7 +63,7 @@
         </div>
         <div>
           <hr />
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center mx-3 my-4">
             <h2>Total:</h2>
             <h2>{{ totalPrice }}</h2>
           </div>
@@ -83,7 +83,7 @@ const toggleSlider = () => {
 };
 const cartItems = computed(() => getters["home/cartItems"]);
 const totalPrice = computed(() => getters["home/totalPrice"]);
-// const noOfItems = computed(() => getters["home/noOfItems"]);
+
 const increaseItemQuantity = (itemId: number) => {
   dispatch("home/incrementItemQuantity", itemId);
 }
