@@ -55,7 +55,7 @@ export const getters = {
   totalPrice(state: { cartTotalPrice: number }) {
     return state.cartTotalPrice;
   },
-  noOfItems(state: { noOfItems: number }) {
-    return state.noOfItems;
+  quantityLimitReachedMessage(state: { quantityLimitReached: boolean }) {
+    return state.quantityLimitReached;
   },
 };
