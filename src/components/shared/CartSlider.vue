@@ -24,9 +24,9 @@
             <div
               v-for="item in cartItems"
               :key="item.id"
-              class="border border-black px-2 py-4 rounded-lg mb-5"
+              class="border border-black rounded-lg mb-5"
             >
-              <div class="flex justify-center items-center gap-4">
+              <div class="flex justify-center items-center gap-4 mx-1 mt-3">
                 <img :src="item.image" :alt="item.title" class="w-10" />
                 <div class="flex flex-col gap-2">
                   <div class="flex justify-center">
@@ -40,7 +40,9 @@
                   </div>
                   <div class="flex justify-between items-center">
                     <h2>{{ item.price }}</h2>
-                    <div class="flex justify-between items-center gap-2 w-32 rounded-lg bg-slate-200">
+                    <div
+                      class="flex justify-between items-center gap-2 w-32 rounded-lg bg-slate-200"
+                    >
                       <img
                         src="../../assets/icons/icon-minus.svg"
                         alt="minus"
@@ -58,6 +60,9 @@
                   </div>
                 </div>
               </div>
+              <div v-if="quantityLimitReachedMessage" class="p-2 mt-2 rounded-br-lg rounded-bl-lg text-center text-white  bg-red-600">
+                  The maximum quantity for an item is 5.
+                </div>
             </div>
           </div>
         </div>
@@ -83,13 +88,16 @@ const toggleSlider = () => {
 };
 const cartItems = computed(() => getters["home/cartItems"]);
 const totalPrice = computed(() => getters["home/totalPrice"]);
+const quantityLimitReachedMessage = computed(
+  () => getters["home/quantityLimitReachedMessage"]
+);
 
 const increaseItemQuantity = (itemId: number) => {
   dispatch("home/incrementItemQuantity", itemId);
-}
-const decreaseItemQuantity  = (itemId: number) => {
+};
+const decreaseItemQuantity = (itemId: number) => {
   dispatch("home/decrementItemQuantity", itemId);
-}
+};
 const removeFromCart = (itemId: number) => {
   dispatch("home/removeFromCart", itemId);
 };
