@@ -3,3 +3,10 @@ export enum Message {
   BAD_NETWORK = "Network response was not ok",
   FETCH_ERROR = "Error fetching data",
 }
+
+export enum SortBy {
+  lowToHigh = "lowToHigh",
+  highToLow = "highToLow",
+  rate = "rate",
+  count = "count",
+}
