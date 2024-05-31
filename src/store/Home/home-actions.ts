@@ -1,6 +1,6 @@
 import type { ActionContext } from "vuex/types/index.js";
 import { useProductFetch } from "../../service/homeService";
-import { Message } from "../../types/enum";
+import { Message, SortBy } from "../../types/enum";
 import { StoreType } from "../../types/store";
 import { Product } from "../../types/data";
 
@@ -95,18 +95,18 @@ export const actions = {
     const product = state.productData;
     let sortedProducts: Product[] = [];
     switch (sortBy) {
-      case "lowToHigh":
+      case SortBy.lowToHigh:
         sortedProducts = product.slice().sort((a, b) => a.price - b.price);
         break;
-      case "highToLow":
+      case SortBy.highToLow:
         sortedProducts = product.slice().sort((a, b) => b.price - a.price);
         break;
-      case "rate":
+      case SortBy.rate:
         sortedProducts = product
           .slice()
           .sort((a, b) => b.rating.rate - a.rating.rate);
         break;
-      case "count":
+      case SortBy.count:
         sortedProducts = product
           .slice()
           .sort((a, b) => b.rating.count - a.rating.count);
