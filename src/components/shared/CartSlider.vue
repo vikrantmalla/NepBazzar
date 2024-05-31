@@ -60,9 +60,12 @@
                   </div>
                 </div>
               </div>
-              <div v-if="quantityLimitReachedMessage" class="p-2 mt-2 rounded-br-lg rounded-bl-lg text-center text-white  bg-red-600">
-                  The maximum quantity for an item is 5.
-                </div>
+              <div
+                v-if="quantityLimitReachedMessage(item.id)"
+                class="p-2 mt-2 rounded-br-lg rounded-bl-lg text-center text-white bg-red-600"
+              >
+                The maximum quantity for an item is 5.
+              </div>
             </div>
           </div>
         </div>
@@ -88,7 +91,7 @@ const toggleSlider = () => {
 };
 const cartItems = computed(() => getters["home/cartItems"]);
 const totalPrice = computed(() => getters["home/totalPrice"]);
-const quantityLimitReachedMessage = computed(
+const quantityLimitReachedMessage = computed<(itemId: number) => boolean>(
   () => getters["home/quantityLimitReachedMessage"]
 );
 
