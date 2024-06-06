@@ -22,12 +22,16 @@
         </div>
       </div>
     </div>
+    <div>
+      <ItemQuantityController :itemQuantity="1" :itemId="productId" />
+    </div>
   </div>
 </template>
 <script setup>
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import ItemQuantityController from "../components/shared/ItemQuantityController.vue";
 
 const store = useStore();
 const { getters, dispatch } = store;
