@@ -26,7 +26,7 @@
               :key="item.id"
               class="border border-black rounded-lg mb-5"
             >
-              <div class="flex justify-center items-center gap-4 mx-1 mt-3">
+              <div class="flex justify-center items-center gap-4 mx-1 my-3">
                 <img :src="item.image" :alt="item.title" class="w-10" />
                 <div class="flex flex-col gap-2">
                   <div class="flex justify-center">
@@ -40,23 +40,10 @@
                   </div>
                   <div class="flex justify-between items-center">
                     <h2>{{ item.price }}</h2>
-                    <div
-                      class="flex justify-between items-center gap-2 w-32 rounded-lg bg-slate-200"
-                    >
-                      <img
-                        src="../../assets/icons/icon-minus.svg"
-                        alt="minus"
-                        class="p-4"
-                        @click="decreaseItemQuantity(item.id)"
-                      />
-                      <span> {{ item.quantity }} </span>
-                      <img
-                        src="../../assets/icons/icon-plus.svg"
-                        alt="plus"
-                        class="p-4"
-                        @click="increaseItemQuantity(item.id)"
-                      />
-                    </div>
+                    <ItemQuantityController
+                      :itemQuantity="item.quantity"
+                      :itemId="item.id"
+                    />
                   </div>
                 </div>
               </div>
@@ -83,6 +70,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "vuex";
+import ItemQuantityController from "./ItemQuantityController.vue";
 const store = useStore();
 const { getters, dispatch } = store;
 const isShowSlider = computed(() => getters["home/showSlider"]);
@@ -95,12 +83,6 @@ const quantityLimitReachedMessage = computed<(itemId: number) => boolean>(
   () => getters["home/quantityLimitReachedMessage"]
 );
 
-const increaseItemQuantity = (itemId: number) => {
-  dispatch("home/incrementItemQuantity", itemId);
-};
-const decreaseItemQuantity = (itemId: number) => {
-  dispatch("home/decrementItemQuantity", itemId);
-};
 const removeFromCart = (itemId: number) => {
   dispatch("home/removeFromCart", itemId);
 };
