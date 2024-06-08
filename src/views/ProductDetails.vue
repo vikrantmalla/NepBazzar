@@ -23,11 +23,11 @@
       </div>
     </div>
     <div>
-      <ItemQuantityController :itemQuantity="1" :itemId="productId" />
+      <ItemQuantityController :itemQuantity="productDetails.quantity" :itemId="productId" />
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -40,7 +40,6 @@ const route = useRoute();
 const productId = computed(() => route.params.id);
 
 const productDetails = computed(() => getters["home/getSingleProductData"]);
-console.log(productDetails.value);
 onMounted(async () => {
   await dispatch("home/fetchSingleProductData", productId.value);
 });
